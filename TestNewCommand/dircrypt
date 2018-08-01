@@ -4,6 +4,24 @@ clear
 target=$1
 original=$target
 
+# The second parameter will be the number of times the name will be scrambled
+N=$2
+default=25
+if [ "$N" == "" ]; then
+    N=$default
+
+elif (( $N > 100 )); then
+    echo "N is too large (max=100)"
+    exit 1
+fi
+
+# Display dircrypt_help.txt if the first parameter returns "--help"
+helpFile=/home/testing/TestNewCommand/dircrypt_help.txt
+if [ "$target" == "--help" ]; then
+    cat $helpFile
+    exit 1
+fi
+
 # Do not allow trailing '/'
 tlen=${#target}
 fwd_sl=${target:$tlen-1:1}
@@ -28,7 +46,7 @@ if [ -d $target ]; then
         baseChars[$i]=$letter
     done
 
-    for (( i=0; i<($strLength*strLength); i++ )); do
+    for (( i=0; i<$N; i++ )); do
         baseChars=( $(shuf -e "${baseChars[@]}") )
         scrambledTarget=${baseChars[*]}
         echo "SCRAMBLING TARGET: $scrambledTarget"
@@ -62,5 +80,3 @@ else
     echo "$target does not exist!"
     echo "Please make sure the path you gave is correct."
 fi
-
-

@@ -1,0 +1,10 @@
+# For help type "dircrypt --help"
+# This command only takes two arguments:
+- dircrypt....[DIRECTORY]....[N]
+  
+  [DIRECTORY] = your target directory for which its name will be encrypted
+  [N] = the number of times you wish to have the name scrambled
+        (max for N is 100)
+
+# For any additional assistance, please contact Mr. Elijah Reyes 
+    <ereyes@citadel.edu>

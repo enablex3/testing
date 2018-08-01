@@ -1,5 +1,2 @@
-# testing
-Unzip "testing-master.zip".
-"cd" into the folder you extracted it to.
-type "bash ./hello.sh"
-Thank you!
+# JUST THROWING A FEW TEST SCRIPTS AND DIRECTORIES IN HERE
+# TO GET A BETTER GRIP OF USING "GIT" ON UBUNTU AND RED
