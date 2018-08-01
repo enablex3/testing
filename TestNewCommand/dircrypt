@@ -1,0 +1,66 @@
+clear
+
+# The first parameter will be our target directory
+target=$1
+original=$target
+
+# Do not allow trailing '/'
+tlen=${#target}
+fwd_sl=${target:$tlen-1:1}
+
+if [ "$fwd_sl" == "/" ]; then
+    echo "Please, remove final '/' from your path and try again..."
+    exit 1
+fi
+
+
+#Check if the directory exists
+if [ -d $target ]; then
+    # Manipulate the directory as a string here 
+    base=$(basename $target)
+    echo "Target: $base"
+    sleep 2
+    declare -a baseChars='()'
+    strLength=${#base}
+    
+    for (( i=0; i<$strLength; i++ )); do
+        letter=${base:$i:1}
+        baseChars[$i]=$letter
+    done
+
+    for (( i=0; i<($strLength*strLength); i++ )); do
+        baseChars=( $(shuf -e "${baseChars[@]}") )
+        scrambledTarget=${baseChars[*]}
+        echo "SCRAMBLING TARGET: $scrambledTarget"
+        sleep 0.05
+        clear
+    done
+
+    # Remove trailing whitespaces
+    wsp=" "
+    scrambledTarget="${scrambledTarget//$wsp/}"
+   
+    # The resulting scramble will be the new directory name
+    # Copy and paste into the appropriate location
+    target="${target//$base/}"
+    newTarget="$target$scrambledTarget"
+
+    if [ ! -d newTarget ]; then
+        cp -r $original $newTarget
+    else
+        echo "Folder already exists"
+    fi
+    echo "Operation complete! Please verify scramble in: "
+    echo " ==========>  $target                          "
+    echo "                 ||                            "
+    echo "                 \\\                            "
+    echo "                  ======> $scrambledTarget     "    
+
+
+else
+    # Tell user it does not exist
+    echo "$target does not exist!"
+    echo "Please make sure the path you gave is correct."
+fi
+
+
